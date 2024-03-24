@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const { isEmail } = require("validator");
+const passwordEncrypt = require("../helpers/passwordEncrypt");
 
 const userSchema = new mongoose.Schema(
   {
@@ -14,6 +15,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, "Password is required"],
       minlength: [6, "Please enter minimum 6 characters."],
+      set: (password) => passwordEncrypt(password),
     },
   },
   {
