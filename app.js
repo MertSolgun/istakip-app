@@ -2,10 +2,12 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 require("dotenv").config();
+const cookieParser = require("cookie-parser");
 
 //middlewares
 app.use(express.static("public"));
 app.use(express.json());
+app.use(cookieParser());
 app.set("view engine", "ejs");
 
 //Db connection
@@ -28,6 +30,17 @@ app.get("/works", (req, res) => {
 
 app.use(require("./routes/authRoutes"));
 
-// git rm --cached .env
-// git commit -m "Güvenlik nedeniyle .env dosyasını kaldır"
-// git push origin main
+//Cookies
+app.get("/set-cookies", (req, res) => {
+  res.cookie("yeni", false);
+  res.cookie("parola", "12345", {
+    maxAge: 1000 * 60 * 60 * 24,
+    httpOnly: true,
+  });
+  res.send("cookie olustu");
+});
+
+app.get("/get-cookies", (req, res) => {
+  const cookies = req.cookies;
+  res.json(cookies);
+});
