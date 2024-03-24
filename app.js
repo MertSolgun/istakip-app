@@ -8,9 +8,9 @@ app.use(express.static("public"));
 app.set("view engine", "ejs");
 
 //Db connection
-const dbURI = process.env.dbURI;
+const dbUri = process.env.dbUri;
 mongoose
-  .connect(dbURI)
+  .connect(dbUri)
   .then((result) =>
     app.listen(3000, () => {
       console.log("Db connection");
