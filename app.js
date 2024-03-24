@@ -5,6 +5,7 @@ require("dotenv").config();
 
 //middlewares
 app.use(express.static("public"));
+app.use(express.json());
 app.set("view engine", "ejs");
 
 //Db connection
@@ -24,3 +25,9 @@ app.get("/", (req, res) => {
 app.get("/works", (req, res) => {
   res.render("works");
 });
+
+app.use(require("./routes/authRoutes"));
+
+// git rm --cached .env
+// git commit -m "Güvenlik nedeniyle .env dosyasını kaldır"
+// git push origin main
